@@ -7,12 +7,12 @@ function buildChart(sampleName) {
         var filterResult = samples.filter(sample => sample.id == sampleName);
         var result = filterResult[0];
 
-        var otu_ids = result.otu_ids;
+        var ids = result.otu_ids;
         var sample_values = result.sample_values;
         var otu_labels = result.otu_labels;
         
         //Create bar chart
-        var yticks = otu_ids.slice(0,10).map(ID => `OTU ${ID}`).reverse();
+        var yticks = ids.slice(0,10).map(ID => `OTU ${ID}`).reverse();
         
         var barData = [
             {
@@ -35,13 +35,13 @@ function buildChart(sampleName) {
 
         var bubbleData = [
             {
-                x: otu_ids,
+                x: ids,
                 y: sample_values,
                 text: otu_labels,
                 mode: "markers",
                 marker: {
                     size: sample_values,
-                    color: otu_ids,
+                    color: ids,
                     colorscale: "Earth",
                 }
             }
@@ -88,11 +88,11 @@ function init() {
 
         names.forEach((sample) => {
             selector.append("option").property("value", sample).text(sample); 
-
+        });
+        
         var defaultName = names[0];
         buildChart(defaultName);
         buildMetaData(defaultName);
-        });
     });
 }
 
